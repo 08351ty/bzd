@@ -67,10 +67,10 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("SIU", TIME_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("IDK", TIME_ADDRESS)}>
                                         <p>IDK</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("SSIU", MEMO_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("sIDK", MEMO_ADDRESS)}>
                                         <p>SIDK</p>
                                     </div>
                                 </div>
