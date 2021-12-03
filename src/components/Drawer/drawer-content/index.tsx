@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Social from "./social";
 import StakeIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
-import WonderlandIcon from "../../../assets/icons/wonderland-nav-header.svg";
+import WonderlandIcon from "../../../assets/icons/siu-nav-header.svg";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
@@ -31,9 +31,11 @@ function NavContent() {
         if (currentPath.indexOf("mints") >= 0 && page === "mints") {
             return true;
         }
+        /*
         if (currentPath.indexOf("calculator") >= 0 && page === "calculator") {
             return true;
         }
+        */
         return false;
     }, []);
 
@@ -46,7 +48,7 @@ function NavContent() {
 
                 {address && (
                     <div className="wallet-link">
-                        <Link href={`https://cchain.explorer.avax.network/address/${address}`} target="_blank">
+                        <Link href={`https://blockexplorer.rinkeby.boba.network/address/${address}`} target="_blank">
                             <p>{shorten(address)}</p>
                         </Link>
                     </div>
@@ -55,20 +57,6 @@ function NavContent() {
 
             <div className="dapp-menu-links">
                 <div className="dapp-nav">
-                    <Link
-                        component={NavLink}
-                        to="/dashboard"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "dashboard");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={DashboardIcon} />
-                            <p>Dashboard</p>
-                        </div>
-                    </Link>
-
                     <Link
                         component={NavLink}
                         to="/stake"
@@ -113,20 +101,6 @@ function NavContent() {
                             </Link>
                         ))}
                     </div>
-
-                    <Link
-                        component={NavLink}
-                        to="/calculator"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "calculator");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={GlobeIcon} />
-                            <p>Calculator</p>
-                        </div>
-                    </Link>
                 </div>
             </div>
             <div className="dapp-menu-doc-link">

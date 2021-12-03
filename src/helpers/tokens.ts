@@ -119,13 +119,6 @@ const chart: IToken = {
     decimals: 18,
 };
 
-const dai: IToken = {
-    name: "DAI.e",
-    address: "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70",
-    img: DaiEIcon,
-    decimals: 18,
-};
-
 const dregg: IToken = {
     name: "DREGG",
     address: "0x88c090496125b751B4E3ce4d3FDB8E47DD079c57",
@@ -210,8 +203,8 @@ const mai: IToken = {
     decimals: 18,
 };
 
-export const mim: IToken = {
-    name: "MIM",
+export const dai: IToken = {
+    name: "DAI",
     address: "0x130966628846BFd36ff31a822705796e8cb8C18D",
     img: MimIcon,
     decimals: 18,
@@ -402,7 +395,6 @@ export default [
     bnb,
     boofi,
     chart,
-    dai,
     dregg,
     ele,
     elk,
@@ -415,7 +407,7 @@ export default [
     klo,
     link,
     mai,
-    mim,
+    dai,
     myak,
     olive,
     pefi,

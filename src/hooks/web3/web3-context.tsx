@@ -64,7 +64,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.AVAX]: getMainnetURI(),
+                            [Networks.BOBATEST]: getMainnetURI(),
                         },
                     },
                 },
@@ -118,7 +118,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.AVAX) {
+        if (chainId === Networks.AVAX || chainId === Networks.BOBATEST) {
             setProvider(connectedProvider);
         }
 
@@ -129,7 +129,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
     const checkWrongNetwork = async (): Promise<boolean> => {
         if (providerChainID !== DEFAULD_NETWORK) {
-            const shouldSwitch = window.confirm(messages.switch_to_avalanche);
+            const shouldSwitch = window.confirm(messages.switch_to_boba);
             if (shouldSwitch) {
                 await swithNetwork();
                 window.location.reload();

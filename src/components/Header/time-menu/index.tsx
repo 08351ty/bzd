@@ -51,15 +51,15 @@ function TimeMenu() {
     return (
         <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
             <div className="time-menu-btn">
-                <p>TIME</p>
+                <p>IDK</p>
             </div>
 
             <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
-                                <p>Buy on Trader Joe</p>
+                            <Link className="tooltip-item" href={`https://www.oolongswap.com/#/swap`} target="_blank">
+                                <p>Buy on Oolong</p>
                             </Link>
 
                             {isEthereumAPIAvailable && (
@@ -67,11 +67,11 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("TIME", TIME_ADDRESS)}>
-                                        <p>TIME</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("SIU", TIME_ADDRESS)}>
+                                        <p>IDK</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("MEMO", MEMO_ADDRESS)}>
-                                        <p>MEMO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("SSIU", MEMO_ADDRESS)}>
+                                        <p>SIDK</p>
                                     </div>
                                 </div>
                             )}
