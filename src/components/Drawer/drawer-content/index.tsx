@@ -42,7 +42,7 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://wonderland.money" target="_blank">
+                <Link href="https://google.com" target="_blank">
                     <img alt="" src={WonderlandIcon} />
                 </Link>
 
