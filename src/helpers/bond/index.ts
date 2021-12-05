@@ -2,7 +2,7 @@ import { Networks } from "../../constants/blockchain";
 import { LPBond, CustomLPBond } from "./lp-bond";
 import { StableBond, CustomBond } from "./stable-bond";
 
-import MimIcon from "../../assets/tokens/MIM.svg";
+import DaiEIcon from "../../assets/tokens/DAI.e.png";
 import AvaxIcon from "../../assets/tokens/AVAX.svg";
 import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
 import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
@@ -13,7 +13,7 @@ export const dai = new StableBond({
     name: "dai",
     displayName: "DAI",
     bondToken: "DAI",
-    bondIconSvg: MimIcon,
+    bondIconSvg: DaiEIcon,
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {

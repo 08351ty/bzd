@@ -1,8 +1,6 @@
 .dapp-topbar {
-  width: 89%;
-  max-width: 833px;
-  align-items: center;
-  margin: auto;
+  width: 100%;
+  margin: 0px 16px 0px 16px;
 
   .dapp-topbar-slider-btn{
     background: rgba(255, 255, 255, 0.2);
@@ -20,6 +18,42 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+  }
+
+
+  .branding-header {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    text-decoration: none;
+    // margin: 20px 0 63px 0;
+    
+    img {
+      height: 50px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p{
+        font-family: Montserrat SemiBold;
+        font-size: 14px;
+        color: #0A0F1D;
+        margin-left: 8px;
+      }
+
+      .wallet-link {
+        margin: 10px;
+    
+        p{
+          font-family: Montserrat SemiBold;
+          font-size: 10px;
+          color: #0A0F1D;
+        }
+      }
+    }
   }
 }
 
