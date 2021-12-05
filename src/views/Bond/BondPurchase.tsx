@@ -197,12 +197,12 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
 
                     <div className="data-row">
                         <p className="bond-balance-title">You Will Get</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} IDK`}</p>
                     </div>
 
                     <div className={`data-row`}>
                         <p className="bond-balance-title">Max You Can Buy</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} IDK`}</p>
                     </div>
 
                     <div className="data-row">
@@ -217,7 +217,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
 
                     <div className="data-row">
                         <p className="bond-balance-title">Minimum purchase</p>
-                        <p className="bond-balance-title">0.01 TIME</p>
+                        <p className="bond-balance-title">0.01 IDK</p>
                     </div>
                 </Box>
             </Slide>

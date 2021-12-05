@@ -79,8 +79,8 @@ function Stake() {
 
     const hasAllowance = useCallback(
         token => {
-            if (token === "time") return stakeAllowance > 0;
-            if (token === "memo") return unstakeAllowance > 0;
+            if (token === "idk") return stakeAllowance > 0;
+            if (token === "sidk") return unstakeAllowance > 0;
             return 0;
         },
         [stakeAllowance],
@@ -188,7 +188,7 @@ function Stake() {
 
                                             {view === 0 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("time") ? (
+                                                    {address && hasAllowance("idk") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -203,7 +203,7 @@ function Stake() {
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("time");
+                                                                onSeekApproval("idk");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
@@ -222,7 +222,7 @@ function Stake() {
                                                                 onChangeStake("unstake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake TIME")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake IDK")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
@@ -240,7 +240,7 @@ function Stake() {
                                         </div>
 
                                         <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("time") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
+                                            {address && ((!hasAllowance("idk") && view === 0) || (!hasAllowance("sidk") && view === 1)) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
