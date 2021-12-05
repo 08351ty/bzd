@@ -29,6 +29,10 @@ export const dai = new StableBond({
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
+        [Networks.ETHRINKEBY]: {
+            bondAddress: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
+            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+        },
     },
     tokensInStrategy: "60500000000000000000000000",
 });
