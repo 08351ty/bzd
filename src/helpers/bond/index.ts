@@ -3,6 +3,7 @@ import { LPBond, CustomLPBond } from "./lp-bond";
 import { StableBond, CustomBond } from "./stable-bond";
 
 import DaiEIcon from "../../assets/tokens/DAI.e.png";
+import UsdcEIcon from "../../assets/tokens/USDC.e.png";
 import AvaxIcon from "../../assets/tokens/AVAX.svg";
 import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
 import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
@@ -23,6 +24,34 @@ export const dai = new StableBond({
         },
         [Networks.BOBATEST]: {
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
+            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+        },
+        [Networks.BOBA]: {
+            bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
+            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+        },
+        [Networks.ETHRINKEBY]: {
+            bondAddress: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
+            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+        },
+    },
+    tokensInStrategy: "60500000000000000000000000",
+});
+
+export const usdc = new StableBond({
+    name: "usdc",
+    displayName: "USDC",
+    bondToken: "USDC",
+    bondIconSvg: UsdcEIcon,
+    bondContractABI: StableBondContract,
+    reserveContractAbi: StableReserveContract,
+    networkAddrs: {
+        [Networks.AVAX]: {
+            bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
+            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+        },
+        [Networks.BOBATEST]: {
+            bondAddress: "0xB24898De59C8E259F9742bCF2C16Fd613DCeA8F7",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
         [Networks.BOBA]: {
@@ -114,4 +143,4 @@ export const avaxTime = new CustomLPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 */
-export default [dai];
+export default [dai, usdc];

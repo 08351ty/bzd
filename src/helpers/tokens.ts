@@ -205,7 +205,7 @@ const mai: IToken = {
 
 export const dai: IToken = {
     name: "DAI",
-    address: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+    address: "0x6A9865aDE2B6207dAAC49f8bCba9705dEB0B0e6D",
     img: DaiEIcon,
     decimals: 18,
 };
@@ -324,7 +324,7 @@ const tsd: IToken = {
 
 const usdc: IToken = {
     name: "USDC.e",
-    address: "0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664",
+    address: "0xB24898De59C8E259F9742bCF2C16Fd613DCeA8F7",
     img: UsdcEIcon,
     decimals: 6,
 };

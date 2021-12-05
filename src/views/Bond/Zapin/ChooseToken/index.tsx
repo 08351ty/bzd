@@ -9,7 +9,7 @@ import { Skeleton } from "@material-ui/lab";
 import useTokens, { IAllTokenData } from "../../../../hooks/tokens";
 import { trim } from "../../../../helpers";
 import { IAllBondData } from "../../../../hooks/bonds";
-import { dai } from "../../../../helpers/bond";
+import { dai, usdc } from "../../../../helpers/bond";
 import { dai as daiToken } from "../../../../helpers/tokens";
 
 interface IChooseTokenProps {
@@ -37,11 +37,7 @@ function ChooseToken({ open, handleClose, handleSelect, bond }: IChooseTokenProp
             nameTest = name.toLowerCase().includes(quantity.toLowerCase());
         }
 
-        let lpFilter = true;
-
-        if (bond.name === dai.name) {
-            lpFilter = daiToken.address !== address;
-        }
+        let lpFilter = false;
         return nameTest && addressTest && lpFilter;
     });
 
