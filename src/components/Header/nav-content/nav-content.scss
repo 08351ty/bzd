@@ -1,0 +1,72 @@
+.dapp-nav{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+
+  a {
+    margin-top: 20px;
+    margin-left: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      vertical-align: -4px;
+    }
+  }
+
+  .button-dapp-menu{
+    .dapp-menu-item{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    
+      p{
+        font-weight: 600;
+        font-size: 16px;
+        color: #0A0F1D;
+        font-family: Montserrat SemiBold;
+      }
+    }
+  }
+
+  .button-dapp-menu.active {
+    .dapp-menu-item{
+      p{
+        color: #0F69F8;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .bond-discounts {
+    text-align: left;
+    padding-left: 54px;
+  
+    a{
+      margin-left: 0;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  
+    p{
+      font-family: Montserrat;
+      font-size: 14px;
+      line-height: 17px;
+      color: #0A0F1D;
+    }
+    
+    .bond {
+      display: block;
+      padding: unset;
+      margin-bottom: 0 0 1px 0;
+      text-decoration: none !important;
+      .bond-pair-roi {
+        float: right;
+        margin-left: 33px;
+      }
+    }
+  }
+}

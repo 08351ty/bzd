@@ -1,7 +1,11 @@
-import { AppBar, Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import BuzhidaoIcon from "../../assets/icons/siu-nav-header.svg";
 import MenuIcon from "../../assets/icons/hamburger.svg";
+import { trim, shorten } from "../../helpers";
+import { useAddress } from "../../hooks";
+import NavContent from "./nav-content";
 import TimeMenu from "./time-menu";
 import ConnectButton from "./connect-button";
 import WrapButton from "./wrap-button";
@@ -19,6 +23,7 @@ const useStyles = makeStyles(theme => ({
             width: "100%",
             padding: "20px 0 30px 0",
         },
+        flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "flex-end",
         background: "transparent",
@@ -30,7 +35,7 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: TRANSITION_DURATION,
         }),
-        marginLeft: DRAWER_WIDTH,
+        // marginLeft: DRAWER_WIDTH,
     },
     topBarShift: {
         transition: theme.transitions.create("margin", {
@@ -39,10 +44,17 @@ const useStyles = makeStyles(theme => ({
         }),
         marginLeft: 0,
     },
+    firstBuffer: {
+        flexGrow: 2,
+    },
+    secondBuffer: {
+        flexGrow: 2,
+    },
 }));
 
 function Header({ handleDrawerToggle, drawe }: IHeader) {
     const classes = useStyles();
+    const address = useAddress();
     const isVerySmallScreen = useMediaQuery("(max-width: 400px)");
     const isWrapShow = useMediaQuery("(max-width: 480px)");
 
@@ -50,9 +62,28 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
         <div className={`${classes.topBar} ${!drawe && classes.topBarShift}`}>
             <AppBar position="sticky" className={classes.appBar} elevation={0}>
                 <Toolbar disableGutters className="dapp-topbar">
-                    <div onClick={handleDrawerToggle} className="dapp-topbar-slider-btn">
-                        <img src={MenuIcon} alt="" />
+                    <div className="branding-header">
+                        <Link href="https://google.com" target="_blank">
+                            <img alt="" src={BuzhidaoIcon} />
+                        </Link>
+
+                        <div className="logo-text">
+                            <p>buzhiDAO</p>
+
+                            {address && (
+                                <div className="wallet-link">
+                                    <Link href={`https://blockexplorer.rinkeby.boba.network/address/${address}`} target="_blank">
+                                        <p>{shorten(address)}</p>
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
                     </div>
+
+                    <div className={classes.firstBuffer} />
+                    <NavContent />
+                    <div className={classes.secondBuffer} />
+
                     <div className="dapp-topbar-btns-wrap">
                         {!isVerySmallScreen && <TimeMenu />}
                         <ConnectButton />

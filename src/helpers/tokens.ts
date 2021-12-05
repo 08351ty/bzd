@@ -206,7 +206,7 @@ const mai: IToken = {
 export const dai: IToken = {
     name: "DAI",
     address: "0x130966628846BFd36ff31a822705796e8cb8C18D",
-    img: MimIcon,
+    img: DaiEIcon,
     decimals: 18,
 };
 

@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "#43a047",
     },
     typography: {
-        color: "#FFFFFF",
+        color: "#0A0F1D",
         fontFamily: "Montserrat SemiBold",
     },
     actionRoot: {
