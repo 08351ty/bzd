@@ -118,7 +118,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.AVAX || chainId === Networks.BOBATEST) {
+        if (chainId === Networks.BOBATEST) {
             setProvider(connectedProvider);
         }
 

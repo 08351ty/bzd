@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { IdkTokenContract, MemoTokenContract, MimTokenContract, wMemoTokenContract } from "../../abi";
+import { IdkTokenContract, MemoTokenContract, MimTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -21,7 +21,6 @@ interface IAccountBalances {
     balances: {
         memo: string;
         time: string;
-        wmemo: string;
     };
 }
 
@@ -32,14 +31,11 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
     const memoBalance = await memoContract.balanceOf(address);
     const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, IdkTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
-    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
-    const wmemoBalance = await wmemoContract.balanceOf(address);
 
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
             time: ethers.utils.formatUnits(timeBalance, "gwei"),
-            wmemo: ethers.utils.formatEther(wmemoBalance),
         },
     };
 });
@@ -54,13 +50,9 @@ interface IUserAccountDetails {
     balances: {
         time: string;
         memo: string;
-        wmemo: string;
     };
     staking: {
         time: number;
-        memo: number;
-    };
-    wrapping: {
         memo: number;
     };
 }
@@ -87,29 +79,16 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
         const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
         memoBalance = await memoContract.balanceOf(address);
         unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
-
-        if (addresses.WMEMO_ADDRESS) {
-            memoWmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
-        }
-    }
-
-    if (addresses.WMEMO_ADDRESS) {
-        const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
-        wmemoBalance = await wmemoContract.balanceOf(address);
     }
 
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
             time: ethers.utils.formatUnits(timeBalance, "gwei"),
-            wmemo: ethers.utils.formatEther(wmemoBalance),
         },
         staking: {
             time: Number(stakeAllowance),
             memo: Number(unstakeAllowance),
-        },
-        wrapping: {
-            memo: Number(memoWmemoAllowance),
         },
     };
 });
@@ -194,7 +173,7 @@ interface ICalcUserTokenDetails {
 export interface IUserTokenDetails {
     allowance: number;
     balance: number;
-    isAvax?: boolean;
+    isEth?: boolean;
 }
 
 export const calculateUserTokenDetails = createAsyncThunk("account/calculateUserTokenDetails", async ({ address, token, networkID, provider }: ICalcUserTokenDetails) => {
@@ -210,15 +189,15 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         });
     }
 
-    if (token.isAvax) {
-        const avaxBalance = await provider.getSigner().getBalance();
-        const avaxVal = ethers.utils.formatEther(avaxBalance);
+    if (token.isEth) {
+        const ethBalance = await provider.getSigner().getBalance();
+        const ethVal = ethers.utils.formatEther(ethBalance);
 
         return {
             token: token.name,
             tokenIcon: token.img,
-            balance: Number(avaxVal),
-            isAvax: true,
+            balance: Number(ethVal),
+            isEth: true,
         };
     }
 
@@ -248,14 +227,10 @@ export interface IAccountSlice {
     balances: {
         memo: string;
         time: string;
-        wmemo: string;
     };
     loading: boolean;
     staking: {
         time: number;
-        memo: number;
-    };
-    wrapping: {
         memo: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
@@ -264,9 +239,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "", wmemo: "" },
+    balances: { memo: "", time: "" },
     staking: { time: 0, memo: 0 },
-    wrapping: { memo: 0 },
     tokens: {},
 };
 

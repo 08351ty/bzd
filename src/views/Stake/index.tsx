@@ -115,7 +115,7 @@ function Stake() {
                                         <div className="stake-card-apy">
                                             <p className="stake-card-metrics-title">APY</p>
                                             <p className="stake-card-metrics-value">
-                                                {stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}
+                                                {stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number("trimmedStakingAPY"))}%</> : <Skeleton width="150px" />}
                                             </p>
                                         </div>
                                     </Grid>

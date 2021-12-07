@@ -18,24 +18,20 @@ export const dai = new StableBond({
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
-        [Networks.AVAX]: {
-            bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
-        },
         [Networks.BOBATEST]: {
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            reserveAddress: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
         },
         [Networks.BOBA]: {
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            reserveAddress: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
         },
         [Networks.ETHRINKEBY]: {
             bondAddress: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
-    tokensInStrategy: "60500000000000000000000000",
+    //tokensInStrategy: "60500000000000000000000000",
 });
 
 export const usdc = new StableBond({
@@ -46,13 +42,9 @@ export const usdc = new StableBond({
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
-        [Networks.AVAX]: {
-            bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
-        },
         [Networks.BOBATEST]: {
             bondAddress: "0xB24898De59C8E259F9742bCF2C16Fd613DCeA8F7",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            reserveAddress: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
         },
         [Networks.BOBA]: {
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
@@ -63,7 +55,7 @@ export const usdc = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
-    tokensInStrategy: "60500000000000000000000000",
+    //tokensInStrategy: "60500000000000000000000000",
 });
 
 //don't need this

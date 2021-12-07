@@ -18,7 +18,7 @@ const BOBA_TESTNET = {
     MEMO_ADDRESS: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
     TIME_ADDRESS: "0xC06FF450f3c0538603e9100F013a12aA38b97825",
     DAI_ADDRESS: "0x0630f97C8938051a44b0A64e9D4d484295393Fe4",
-    STAKING_ADDRESS: "0xB1205aeF6b91219F258a3a6b94d0f7FfDC6fdC81",
+    STAKING_ADDRESS: "0x6f5e5c5e1C9C3362CB0319B34e6ea8Da4563f55D",
     STAKING_HELPER_ADDRESS: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
     TIME_BONDING_CALC_ADDRESS: "0xf94D642e534fee6b919E52F275ca355AA58fcB8d",
     TREASURY_ADDRESS: "0xA0dFA7F5AAb9174dAc914699b9DbaAbd910aB4aD",
@@ -54,8 +54,8 @@ const ETH_RINKEBY = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.AVAX) return AVAX_MAINNET;
-    else if (networkID === Networks.BOBATEST) return BOBA_TESTNET;
+    //if (networkID === Networks.AVAX) return AVAX_MAINNET;
+    if (networkID === Networks.BOBATEST) return BOBA_TESTNET;
     else if (networkID === Networks.BOBA) return BOBA_MAINNET;
     else if (networkID === Networks.ETHRINKEBY) return ETH_RINKEBY;
 

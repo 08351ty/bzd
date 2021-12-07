@@ -8,7 +8,6 @@ import { useAddress } from "../../hooks";
 import NavContent from "./nav-content";
 import TimeMenu from "./time-menu";
 import ConnectButton from "./connect-button";
-import WrapButton from "./wrap-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 
