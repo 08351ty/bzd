@@ -110,15 +110,18 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const terms = await bondContract.terms();
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
-
+    //need to figure out why bondContract not correct
     let marketPrice = await getMarketPrice(networkID, provider);
 
-    const mimPrice = getTokenPrice("MIM");
-    marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
+    const daiPrice = getTokenPrice("DAI");
+    marketPrice = (marketPrice / Math.pow(10, 9)) * daiPrice;
 
     try {
-        bondPrice = await bondContract.bondPriceInUSD();
-
+        if (bond.name == "dai") {
+            bondPrice = await bondContract.bondPriceInUSD();
+        } else if (bond.name == "usdc") {
+            bondPrice = (await bondContract.bondPriceInUSD()) * 10 ** 12;
+        }
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);

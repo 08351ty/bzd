@@ -7,4 +7,4 @@ export enum Networks {
     ETHRINKEBY = 4,
 }
 
-export const DEFAULD_NETWORK = Networks.BOBATEST;
+export const DEFAULD_NETWORK = Networks.ETHRINKEBY;

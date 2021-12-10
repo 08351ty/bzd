@@ -61,9 +61,6 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     let timeBalance = 0;
     let memoBalance = 0;
 
-    let wmemoBalance = 0;
-    let memoWmemoAllowance = 0;
-
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
 
@@ -148,7 +145,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
     const avaxVal = ethers.utils.formatEther(avaxBalance);
 
     const pendingPayoutVal = ethers.utils.formatUnits(pendingPayout, "gwei");
-
+    console.log("CUBD: bondname: " + bond.name + "|| interestDue: " + interestDue + "|| balance: " + balance);
     return {
         bond: bond.name,
         displayName: bond.displayName,
@@ -188,7 +185,6 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
             });
         });
     }
-
     if (token.isEth) {
         const ethBalance = await provider.getSigner().getBalance();
         const ethVal = ethers.utils.formatEther(ethBalance);
@@ -212,7 +208,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     balance = await tokenContract.balanceOf(address);
 
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
-
+    console.log("CUTD: name: " + token.name + "|| address: " + token.address + "|| balance: " + balance);
     return {
         token: token.name,
         address: token.address,

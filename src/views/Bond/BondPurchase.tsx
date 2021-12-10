@@ -11,7 +11,6 @@ import { IAllBondData } from "../../hooks/bonds";
 import useDebounce from "../../hooks/debounce";
 import { messages } from "../../constants/messages";
 import { warning } from "../../store/slices/messages-slice";
-import Zapin from "./Zapin";
 
 interface IBondPurchaseProps {
     bond: IAllBondData;
@@ -26,7 +25,6 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     const [useAvax, setUseAvax] = useState(false);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
-    const [zapinOpen, setZapinOpen] = useState(false);
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -110,29 +108,11 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const handleZapinOpen = () => {
-        dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
-        setZapinOpen(true);
-    };
-
-    const handleZapinClose = () => {
-        dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
-        setZapinOpen(false);
-    };
-
-    const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
+    const displayUnits = useAvax ? "ETH" : bond.displayUnits;
 
     return (
         <Box display="flex" flexDirection="column">
             <Box display="flex" justifyContent="space-around" flexWrap="wrap">
-                {bond.name === "wavax" && (
-                    <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
-                        <div className="avax-checkbox">
-                            <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
-                            <p>Use AVAX</p>
-                        </div>
-                    </FormControl>
-                )}
                 <FormControl className="bond-input-wrap" variant="outlined" color="primary" fullWidth>
                     <OutlinedInput
                         placeholder="Amount"
@@ -221,7 +201,6 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 </Box>
             </Slide>
-            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
         </Box>
     );
 }

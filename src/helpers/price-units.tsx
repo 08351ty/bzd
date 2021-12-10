@@ -1,5 +1,4 @@
 import { SvgIcon } from "@material-ui/core";
-import { ReactComponent as MimImg } from "../assets/tokens/MIM.svg";
 import { IAllBondData } from "../hooks/bonds";
 import { dai } from "../helpers/bond";
 import { usdc } from "../helpers/bond";

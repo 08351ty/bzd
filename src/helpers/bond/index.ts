@@ -8,7 +8,7 @@ import AvaxIcon from "../../assets/tokens/AVAX.svg";
 import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
 import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
 
-import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
+import { StableBondContract, StableReserveContract } from "../../abi";
 
 export const dai = new StableBond({
     name: "dai",
@@ -27,11 +27,11 @@ export const dai = new StableBond({
             reserveAddress: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
         },
         [Networks.ETHRINKEBY]: {
-            bondAddress: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            bondAddress: "0x1D9bC7712b94780c68087e072c0804C30EE9cF20",
+            reserveAddress: "0x6A9865aDE2B6207dAAC49f8bCba9705dEB0B0e6D",
         },
     },
-    //tokensInStrategy: "60500000000000000000000000",
+    tokensInStrategy: "1000000000000000000000000",
 });
 
 export const usdc = new StableBond({
@@ -51,11 +51,11 @@ export const usdc = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
         [Networks.ETHRINKEBY]: {
-            bondAddress: "0x4aD084Bc712855361571cD10C157d960D0d7Bdd1",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            bondAddress: "0xCbd592632058F8add31Ff21Bd9D3925aa923bCa6",
+            reserveAddress: "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b",
         },
     },
-    //tokensInStrategy: "60500000000000000000000000",
+    tokensInStrategy: "2300000000000000000000000",
 });
 
 //don't need this

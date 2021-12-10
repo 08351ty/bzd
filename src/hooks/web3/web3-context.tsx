@@ -64,7 +64,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.BOBATEST]: getMainnetURI(),
+                            [Networks.ETHRINKEBY]: getMainnetURI(),
                         },
                     },
                 },
@@ -118,7 +118,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.BOBATEST) {
+        if (chainId === Networks.ETHRINKEBY) {
             setProvider(connectedProvider);
         }
 

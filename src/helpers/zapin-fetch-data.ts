@@ -24,11 +24,11 @@ export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmoun
 };
 
 export const zapinData = async (bond: IAllBondData, token: IToken, tokenAmmount: string, network: Networks, slippage: number) => {
-    const sellToken = token.isEth ? "0x4200000000000000000000000000000000000006" : token.address;
+    const sellToken = token.isEth ? "0x0000000000000000000000000000000000000000" : token.address;
     const buyToken = bond.getAddressForReserve(network);
 
     //const url = `https://api.0x.org/swap/v1/quote?buyToken=${buyToken}&includePriceComparisons=true&intentOnFilling=true&sellAmount=${tokenAmmount}&sellToken=${sellToken}&skipValidation=true&slippagePercentage=${slippage}`;
-    const url = `https://api.0x.org/swap/v1/quote?buyToken=DAI&includePriceComparisons=true&intentOnFilling=true&sellAmount=${tokenAmmount}&sellToken=ETH&skipValidation=true&slippagePercentage=${slippage}`;
+    const url = `https://api.0x.org/swap/v1/quote?buyToken=${buyToken}&includePriceComparisons=true&intentOnFilling=true&sellAmount=${tokenAmmount}&sellToken=${sellToken}&skipValidation=true&slippagePercentage=${slippage}`;
     const { data } = await axios.get(url);
 
     const dataBuyAmount = BigNumber.from(data.buyAmount);
