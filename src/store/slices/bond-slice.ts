@@ -110,7 +110,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const terms = await bondContract.terms();
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
-    //need to figure out why bondContract not correct
     let marketPrice = await getMarketPrice(networkID, provider);
 
     const daiPrice = getTokenPrice("DAI");
