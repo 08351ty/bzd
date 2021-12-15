@@ -8,7 +8,7 @@
   @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    background-color: #55555555;
+    background-color: #00000055;
   }
 
   /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */

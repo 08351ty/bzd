@@ -55,7 +55,7 @@ export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ 
 
     await sleep(2);
 
-    const tokenAllowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+    const tokenAllowance = await tokenContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({

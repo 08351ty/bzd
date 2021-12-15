@@ -58,7 +58,7 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.oolongswap.com/#/swap`} target="_blank">
+                            <Link className="tooltip-item" href={`https://www.oolongswap.com/#/swap?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
                                 <p>Buy on Oolong</p>
                             </Link>
 

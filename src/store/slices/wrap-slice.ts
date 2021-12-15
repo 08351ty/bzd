@@ -50,7 +50,7 @@ export const changeApproval = createAsyncThunk("wrapping/changeApproval", async 
 
     await sleep(2);
 
-    const wmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
+    const wmemoAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({

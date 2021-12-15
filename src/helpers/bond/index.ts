@@ -8,7 +8,7 @@ import AvaxIcon from "../../assets/tokens/AVAX.svg";
 import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
 import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
 
-import { StableBondContract, StableReserveContract } from "../../abi";
+import { StableBondContract, StableReserveContract, LpBondContract, LpReserveContract } from "../../abi";
 
 export const dai = new StableBond({
     name: "dai",
@@ -31,7 +31,7 @@ export const dai = new StableBond({
             reserveAddress: "0x6A9865aDE2B6207dAAC49f8bCba9705dEB0B0e6D",
         },
     },
-    tokensInStrategy: "1000000000000000000000000",
+    //tokensInStrategy: "100000000000000000000000",
 });
 
 export const usdc = new StableBond({
@@ -55,49 +55,17 @@ export const usdc = new StableBond({
             reserveAddress: "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b",
         },
     },
-    tokensInStrategy: "2300000000000000000000000",
+    //tokensInStrategy: "100000000000000000000000",
 });
-
-//don't need this
 /*
-export const wavax = new CustomBond({
-    name: "wavax",
-    displayName: "wAVAX",
-    bondToken: "AVAX",
-    bondIconSvg: AvaxIcon,
-    bondContractABI: WavaxBondContract,
-    reserveContractAbi: StableReserveContract,
-    networkAddrs: {
-        [Networks.AVAX]: {
-            bondAddress: "0xE02B1AA2c4BE73093BE79d763fdFFC0E3cf67318",
-            reserveAddress: "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
-        },
-        [Networks.BOBATEST]: {
-            bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
-        },
-        [Networks.BOBA]: {
-            bondAddress: "0x694738E0A438d90487b4a549b201142c1a97B556",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
-        },
-    },
-    tokensInStrategy: "756916000000000000000000",
-});
-
-
-//don't need this
-export const mimTime = new LPBond({
-    name: "mim_time_lp",
-    displayName: "TIME-MIM LP",
-    bondToken: "MIM",
+export const usdcIDK = new LPBond({
+    name: "usdc_idk_lp",
+    displayName: "IDK-USDC LP",
+    bondToken: "USDC",
     bondIconSvg: MimTimeIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
-        [Networks.AVAX]: {
-            bondAddress: "0xA184AE1A71EcAD20E822cB965b99c287590c4FFe",
-            reserveAddress: "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df",
-        },
         [Networks.BOBATEST]: {
             bondAddress: "0x1811D90d13b51EbEB89D4e865e1F2dB26D256b42",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
@@ -106,8 +74,12 @@ export const mimTime = new LPBond({
             bondAddress: "0x694738E0A438d90487b4a549b201142c1a97B556",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
+        [Networks.ETHRINKEBY]: {
+            bondAddress: "0x95863bA12CdE3024555eBFa04F54e417171A5b1f",
+            reserveAddress: "0x6000eb83c2583AFD25D93cB0629D6b0a0B2F245c",
+        },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://oolongswap.com/#/add/0x1A064A39054967114ECeB2Aaa56844eC6932651f/0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b",
 });
 
 //dont' need this

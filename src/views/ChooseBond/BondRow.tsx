@@ -110,11 +110,17 @@ export function BondTableData({ bond }: IBondProps) {
                 </p>
             </TableCell>
             <TableCell>
-                <Link component={NavLink} to={`/mints/${bond.name}`}>
+                {1 ? (
+                    <Link component={NavLink} to={`/mints/${bond.name}`}>
+                        <div className="bond-table-btn">
+                            <p>Bond</p>
+                        </div>
+                    </Link>
+                ) : (
                     <div className="bond-table-btn">
-                        <p>Bond</p>
+                        <p>Sold Out</p>
                     </div>
-                </Link>
+                )}
             </TableCell>
         </TableRow>
     );
