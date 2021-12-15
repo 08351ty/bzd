@@ -8,13 +8,13 @@
         z-index: 2;
 
         @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-            background: rgba(36, 39, 41, 0.1);
+            background: #FFFFFF;
             backdrop-filter: blur(40px);
         }
 
         /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            background: #181B1C;
+            background: #FFFFFF;
         }
 
         border-radius: 10px;
@@ -88,7 +88,7 @@
                 text-align: center;
 
                 .calculator-card-wallet-connect-btn {
-                    background: rgba(255, 255, 255, 0.2);
+                    background: #0A0F1D0A;
                     box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
                     border-radius: 10px;
                     padding: 14px 58px;
@@ -133,8 +133,8 @@
                     .calculator-card-action-input{
                         width: 100%;
             
-                        background: rgba(255, 255, 255, 0.2);
-                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        background: #0A0F1D0A;
+                        border: 1px solid #0A0F1D0A;
                         border-radius: 10px;
                         outline: none;
                         
@@ -148,7 +148,7 @@
                         }
                         
                         .MuiOutlinedInput-notchedOutline{
-                          border-color: rgba(255, 255, 255, 0.2) !important;
+                          border-color: #0A0F1D0A !important;
                         }
                         
                         .stake-card-action-input-btn{

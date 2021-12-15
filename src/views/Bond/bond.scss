@@ -6,7 +6,7 @@
 
   @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
     .MuiBackdrop-root {
-      background: rgba(100, 100, 100, 0.1) !important;
+      background: rgba(10, 15, 29, 0.6) !important;
       backdrop-filter: blur(33px) !important;
       -webkit-backdrop-filter: blur(33px) !important;
     }
@@ -15,7 +15,7 @@
   /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
   @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     .MuiBackdrop-root {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(10, 15, 29, 0.6);
     }
   }
 
@@ -153,10 +153,10 @@
     }
 
     .bond-one-table-btn.active{
-      border-bottom: 1px solid #0A0F1D;
+      border-bottom: 1px solid #0F69F8;
 
       p{
-        color: #0A0F1D;
+        color: #0F69F8;
       }
     }
   }
@@ -167,8 +167,8 @@
   }
 
   .bond-input {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #0A0F1D0A;
+    border: 1px solid #0A0F1D0A;
     border-radius: 10px;
     outline: none;
     margin-bottom: 20px;
@@ -182,7 +182,7 @@
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: rgba(255, 255, 255, 0.2) !important;
+      border-color: #0A0F1D0A !important;
     }
 
     .stake-input-btn {
@@ -198,7 +198,7 @@
   }
 
   .bond-approve-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background: #0F69F8;
     box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
     border-radius: 10px;
     
@@ -212,7 +212,7 @@
       font-family: Montserrat SemiBold;
       font-weight: 600;
       font-size: 18px;
-      color: #0A0F1D;
+      color: #FFFFFF;
       text-align: center;
     }
   }
