@@ -27,8 +27,8 @@ export const dai = new StableBond({
             reserveAddress: "0xADc3967dd622A2254D2c4a98bc593c620365903d",
         },
         [Networks.ETHRINKEBY]: {
-            bondAddress: "0x1D9bC7712b94780c68087e072c0804C30EE9cF20",
-            reserveAddress: "0x6A9865aDE2B6207dAAC49f8bCba9705dEB0B0e6D",
+            bondAddress: "0x2FDa17489c0625c2922d11ba058b875C63678b00",
+            reserveAddress: "0x6302273E3b980F132825110B6ab77833d1B30d2A",
         },
     },
     //tokensInStrategy: "100000000000000000000000",
@@ -51,8 +51,8 @@ export const usdc = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
         [Networks.ETHRINKEBY]: {
-            bondAddress: "0xCbd592632058F8add31Ff21Bd9D3925aa923bCa6",
-            reserveAddress: "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b",
+            bondAddress: "0x482DF95e6cC1ac51463f20e927218e16e4fd5811",
+            reserveAddress: "0x77f21f9c3378259D66969f10F2c7B4FB94cf8811",
         },
     },
     //tokensInStrategy: "100000000000000000000000",

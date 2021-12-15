@@ -119,7 +119,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         if (bond.name == "dai") {
             bondPrice = await bondContract.bondPriceInUSD();
         } else if (bond.name == "usdc") {
-            bondPrice = (await bondContract.bondPriceInUSD()) * 10 ** 12;
+            bondPrice = await bondContract.bondPriceInUSD();
         }
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {

@@ -11,7 +11,7 @@ import { ethers } from "ethers";
 import { MimTokenContract, ZapinContract } from "../../abi";
 import { calculateUserBondDetails, fetchAccountSuccess } from "./account-slice";
 import { IAllBondData } from "../../hooks/bonds";
-import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
+import { zapinData } from "../../helpers/zapin-fetch-data";
 import { trim } from "../../helpers/trim";
 import { sleep } from "../../helpers";
 
@@ -55,7 +55,7 @@ export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ 
 
     await sleep(2);
 
-    const tokenAllowance = await tokenContract.allowance(address, addresses.STAKING_ADDRESS);
+    const tokenAllowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
@@ -126,7 +126,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
 
     try {
         if (bond.isLP) {
-            [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
+            [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
         } else {
             [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
         }
