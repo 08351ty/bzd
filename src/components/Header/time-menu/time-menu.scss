@@ -20,13 +20,13 @@
   margin-top: 10px;
 
   @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-    background: rgba(0, 0, 0, 0.2);
+    background: #FFFFFF;
     backdrop-filter: blur(100px);
   }
 
   /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
   @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-      background: #181B1C;
+      background: #FFFFFF;
   }
 
   border-radius: 10px;
