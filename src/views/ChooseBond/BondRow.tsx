@@ -113,7 +113,7 @@ export function BondTableData({ bond }: IBondProps) {
                 {1 ? (
                     <Link component={NavLink} to={`/mints/${bond.name}`}>
                         <div className="bond-table-btn">
-                            <p>Bond</p>
+                            <p>Mint</p>
                         </div>
                     </Link>
                 ) : (
