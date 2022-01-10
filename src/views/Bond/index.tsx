@@ -46,7 +46,7 @@ function Bond({ bond }: IBondProps) {
                                 <div className="bond-price-data">
                                     <p className="bond-price-data-title">Mint Price</p>
                                     <p className="bond-price-data-value">
-                                        {isBondLoading ? <Skeleton /> : bond.name === "wavax" ? `$${trim(bond.bondPrice, 2)}` : `${trim(bond.bondPrice, 2)} DAI`}
+                                        {isBondLoading ? <Skeleton /> : bond.name === "usdc" ? `$${trim(bond.bondPrice, 2)} USDC` : `${trim(bond.bondPrice, 2)} DAI`}
                                     </p>
                                 </div>
                                 <div className="bond-price-data">

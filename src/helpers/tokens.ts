@@ -19,14 +19,14 @@ export const eth: IToken = {
 
 export const dai: IToken = {
     name: "DAI",
-    address: "0xaef96C762ff66f1B118681FA83B8668855B7C3e4",
+    address: "0xBDb70E68BdfF18CA57c88D57a230ecAd6FD2fB99",
     img: DaiEIcon,
     decimals: 18,
 };
 
 export const usdc: IToken = {
     name: "USDC.e",
-    address: "0xb48805f3e1c91CEC3FF5C68FFfa5402f93a903e7",
+    address: "0xb0FCb474E5118F5b4568D7B4962dF6B8DBC7Ac25",
     img: UsdcEIcon,
     decimals: 6,
 };
