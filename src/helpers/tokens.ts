@@ -19,7 +19,7 @@ export const eth: IToken = {
 
 export const dai: IToken = {
     name: "DAI",
-    address: "0xBDb70E68BdfF18CA57c88D57a230ecAd6FD2fB99",
+    address: "0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea",
     img: DaiEIcon,
     decimals: 18,
 };

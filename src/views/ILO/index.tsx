@@ -27,6 +27,10 @@ function ILO() {
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
 
+    const daiBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.dai;
+    });
+
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
     });
@@ -34,6 +38,14 @@ function ILO() {
     const hasAllowance = useCallback(() => {
         return false;
     }, [false]);
+
+    const setMax = () => {
+        if (view === 0) {
+            setQuantity(daiBalance);
+        } else {
+            setQuantity(daiBalance); //TODO: change to idk claimed
+        }
+    };
 
     const onSeekApproval = async (token: string) => {
         if (await checkWrongNetwork()) return;
@@ -123,10 +135,10 @@ function ILO() {
                                     <div className="ILO-card-action-area">
                                         <div className="ILO-card-action-stage-btns-wrap">
                                             <div onClick={changeView(0)} className={classnames("ILO-card-action-stage-btn", { active: !view })}>
-                                                <p>Stake</p>
+                                                <p>Deposit DAI</p>
                                             </div>
                                             <div onClick={changeView(1)} className={classnames("ILO-card-action-stage-btn", { active: view })}>
-                                                <p>Unstake</p>
+                                                <p>Withdraw IDK</p>
                                             </div>
                                         </div>
 
@@ -140,7 +152,7 @@ function ILO() {
                                                 labelWidth={0}
                                                 endAdornment={
                                                     <InputAdornment position="end">
-                                                        <div className="ILO-card-action-input-btn">
+                                                        <div onClick={setMax} className="ILO-card-action-input-btn">
                                                             <p>Max</p>
                                                         </div>
                                                     </InputAdornment>
@@ -175,36 +187,25 @@ function ILO() {
 
                                             {view === 1 && (
                                                 <div className="ILO-card-tab-panel">
-                                                    {address && hasAllowance() ? (
-                                                        <div
-                                                            className="ILO-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "unstaking")) return;
-                                                                onChangeStake("unstake");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake IDK")}</p>
-                                                        </div>
-                                                    ) : (
-                                                        <div
-                                                            className="ILO-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("sidk");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
-                                                        </div>
-                                                    )}
+                                                    <div
+                                                        className="ILO-card-tab-panel-btn"
+                                                        onClick={() => {
+                                                            if (isPendingTxn(pendingTransactions, "unstaking")) return;
+                                                            onChangeStake("unstake");
+                                                        }}
+                                                    >
+                                                        <p>{txnButtonText(pendingTransactions, "unstaking", "Withdraw IDK")}</p>
+                                                        {/* TODO: pending tx + unstake */}
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
 
                                         <div className="ILO-card-action-help-text">
-                                            {address && ((!hasAllowance() && view === 0) || (!hasAllowance() && view === 1)) && (
+                                            {address && (!hasAllowance() && view === 0) && (
                                                 <p>
-                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
-                                                    requires you to perform the "Stake" or "Unstake" transaction.
+                                                    Note: The "Approve" transaction is only needed when depositing for the first time; subsequent deposit only
+                                                    requires you to perform the "Withdraw" transaction.
                                                 </p>
                                             )}
                                         </div>
@@ -213,12 +214,13 @@ function ILO() {
                                     <div className="ILO-user-data">
                                         <div className="data-row">
                                             <p className="data-row-name">Your DAI Balance</p>
-                                            <p className="data-row-value">11110 DAI</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{daiBalance} DAI</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Deposited DAI</p>
-                                            <p className="data-row-value">1 DAI</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{daiBalance} DAI</>}</p> 
+                                            {/* TODO: change to deposited dai */}
                                         </div>
 
                                         <div className="data-row">

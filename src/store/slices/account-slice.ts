@@ -21,6 +21,7 @@ interface IAccountBalances {
     balances: {
         memo: string;
         time: string;
+        dai: string;
     };
 }
 
@@ -31,11 +32,14 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
     const memoBalance = await memoContract.balanceOf(address);
     const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, IdkTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
+    const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, IdkTokenContract, provider);
+    const daiBalance = await daiContract.balanceOf(address);
 
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
             time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            dai: ethers.utils.formatUnits(daiBalance),
         },
     };
 });
@@ -50,6 +54,7 @@ interface IUserAccountDetails {
     balances: {
         time: string;
         memo: string;
+        dai: string;
     };
     staking: {
         time: number;
@@ -60,6 +65,7 @@ interface IUserAccountDetails {
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
     let timeBalance = 0;
     let memoBalance = 0;
+    let daiBalance = 0;
 
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
@@ -78,10 +84,16 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
         unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
+    if (addresses.DAI_ADDRESS) {
+        const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, IdkTokenContract, provider);
+        daiBalance = await daiContract.balanceOf(address);
+    }
+
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
             time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            dai: ethers.utils.formatUnits(daiBalance),
         },
         staking: {
             time: Number(stakeAllowance),
@@ -221,6 +233,7 @@ export interface IAccountSlice {
     balances: {
         memo: string;
         time: string;
+        dai: string;
     };
     loading: boolean;
     staking: {
@@ -233,7 +246,7 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "" },
+    balances: { memo: "", time: "", dai: "" },
     staking: { time: 0, memo: 0 },
     tokens: {},
 };
