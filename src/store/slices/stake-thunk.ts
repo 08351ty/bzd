@@ -29,6 +29,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const signer = provider.getSigner();
     const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, IdkTokenContract, signer);
     const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
+    const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, MemoTokenContract, signer);
 
     let approveTx;
     try {
@@ -69,6 +70,43 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
             },
         }),
     );
+});
+
+export const changeDaiApproval = createAsyncThunk("stake/changeApproval", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+    const addresses = getAddresses(networkID);
+
+    const signer = provider.getSigner();
+    const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, MemoTokenContract, signer);
+
+    let approveTx;
+    try {
+        const gasPrice = await getGasPrice(provider);
+
+        if (token === "dai") {
+            approveTx = await daiContract.approve(addresses.ILO_ADDRESS, ethers.constants.MaxUint256, { gasPrice }); //TODO: change staking address
+        }
+
+        const text = "Approve DAI depositing";
+        const pendingTxnType = token === "dai" ? "approve_depositing" : "approve_withdrawing";
+
+        dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
+        await approveTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+    } catch (err: any) {
+        return metamaskErrorWrap(err, dispatch);
+    } finally {
+        if (approveTx) {
+            dispatch(clearPendingTxn(approveTx.hash));
+        }
+    }
+
+    await sleep(2);
+
+    const stakeAllowance = await daiContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
 });
 
 interface IChangeStake {

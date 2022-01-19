@@ -68,6 +68,8 @@ function ILO() {
         setQuantity("");
     };
 
+    const inTime = false;
+
     return (
         <div className="ILO-view">
             <Zoom in={true}>
@@ -176,7 +178,7 @@ function ILO() {
                                                             className="ILO-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("idk");
+                                                                onSeekApproval("dai");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
