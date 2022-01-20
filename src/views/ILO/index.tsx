@@ -13,6 +13,7 @@ import classnames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
 import useTokens, { IAllTokenData } from "../../hooks/tokens";
 import { dai, eth } from "../../helpers/tokens";
+import { initial } from "lodash";
 
 function ILO() {
     const dispatch = useDispatch();
@@ -27,9 +28,16 @@ function ILO() {
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
 
+    const totalOffering = 1000000
+    const minimumTotalDAI = 50000
+    const initialPrice = minimumTotalDAI / totalOffering
+    const totalDeposit = 510347
+    
     const daiBalance = useSelector<IReduxState, string>(state => {
         return state.account.balances && state.account.balances.dai;
     });
+    const depositedDai = 1000
+    const estimatedIDK = depositedDai / totalDeposit * totalOffering
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -56,7 +64,7 @@ function ILO() {
     const onChangeStake = async (action: string) => {
         if (await checkWrongNetwork()) return;
         if (quantity === "" || parseFloat(quantity) === 0) {
-            dispatch(warning({ text: action === "stake" ? messages.before_stake : messages.before_unstake }));
+            dispatch(warning({ text: action === "stake" ? messages.before_stake : messages.before_unstake })); // change to withdraw/deposit IDK DAI
         } else {
             await dispatch(changeStake({ address, action, value: String(quantity), provider, networkID: chainID }));
             setQuantity("");
@@ -88,28 +96,49 @@ function ILO() {
                                     <Grid item xs={12} sm={4} md={4} lg={4}>
                                         <div className="ILO-card-offering">
                                             <p className="ILO-card-metrics-title">Total Offering</p>
-                                            <p className="ILO-card-metrics-value">1,000,000 IDK</p>
+                                            <p className="ILO-card-metrics-value">{totalOffering ? (
+                                                    new Intl.NumberFormat("en-US", {
+                                                        maximumFractionDigits: 0,
+                                                        minimumFractionDigits: 0,
+                                                    }).format(totalOffering)
+                                                ) : (
+                                                    <Skeleton width="150px" />
+                                                )} IDK</p>
                                         </div>
                                     </Grid>
 
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="ILO-card-init-price">
                                             <p className="ILO-card-metrics-title">Initial Price</p>
-                                            <p className="ILO-card-metrics-value">0.05 DAI</p>
+                                            <p className="ILO-card-metrics-value">{initialPrice ? (initialPrice) : (<Skeleton width="150px" />)} DAI</p>
                                         </div>
                                     </Grid>
 
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="ILO-card-min-DAI">
                                             <p className="ILO-card-metrics-title">Minimum total DAI</p>
-                                            <p className="ILO-card-metrics-value">50,000 DAI</p>
+                                            <p className="ILO-card-metrics-value">{minimumTotalDAI ? (
+                                                    new Intl.NumberFormat("en-US", {
+                                                        maximumFractionDigits: 0,
+                                                        minimumFractionDigits: 0,
+                                                    }).format(minimumTotalDAI)
+                                                ) : (
+                                                    <Skeleton width="150px" />
+                                                )} DAI</p>
                                         </div>
                                     </Grid>
                                     <Grid item xs={2} sm={2} md={2} lg={2}></Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <div className="ILO-card-total-deposit">
                                             <p className="ILO-card-metrics-title">Total Deposit</p>
-                                            <p className="ILO-card-metrics-value">510,347 DAI</p>
+                                            <p className="ILO-card-metrics-value">{totalDeposit ? (
+                                                    new Intl.NumberFormat("en-US", {
+                                                        maximumFractionDigits: 0,
+                                                        minimumFractionDigits: 0,
+                                                    }).format(totalDeposit)
+                                                ) : (
+                                                    <Skeleton width="150px" />
+                                                )} DAI</p>
                                         </div>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
@@ -145,23 +174,45 @@ function ILO() {
                                         </div>
 
                                         <div className="ILO-card-action-row">
-                                            <OutlinedInput
-                                                type="number"
-                                                placeholder="Amount"
-                                                className="ILO-card-action-input"
-                                                value={quantity}
-                                                onChange={e => setQuantity(e.target.value)}
-                                                labelWidth={0}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <div onClick={setMax} className="ILO-card-action-input-btn">
-                                                            <p>Max</p>
-                                                        </div>
-                                                    </InputAdornment>
-                                                }
-                                            />
+                                            {((inTime && view === 0) || (!inTime && view === 1)) && (
+                                                <OutlinedInput
+                                                    type="number"
+                                                    placeholder="Amount"
+                                                    className="ILO-card-action-input"
+                                                    value={quantity}
+                                                    onChange={e => setQuantity(e.target.value)}
+                                                    labelWidth={0}
+                                                    endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <div onClick={setMax} className="ILO-card-action-input-btn">
+                                                                <p>Max</p>
+                                                            </div>
+                                                        </InputAdornment>
+                                                    }
+                                                />
+                                            )}
 
-                                            {view === 0 && (
+                                            {(!inTime && view === 0) && (
+                                                <OutlinedInput
+                                                    disabled={true}
+                                                    placeholder="ILO is over, proceed to Withdraw IDK and claim your allocated IDK"
+                                                    className="ILO-card-action-input"
+                                                    onChange={e => setQuantity(e.target.value)}
+                                                    labelWidth={0}
+                                                />
+                                            )}
+
+                                            {(inTime && view === 1) && (
+                                                <OutlinedInput
+                                                    disabled={true}
+                                                    placeholder="ILO is in progress, proceed to Deposit DAI and deposit DAI to secure your IDK allocation"
+                                                    className="ILO-card-action-input"
+                                                    onChange={e => setQuantity(e.target.value)}
+                                                    labelWidth={0}
+                                                />
+                                            )}
+
+                                            {(inTime && view === 0) && (
                                                 <div className="ILO-card-tab-panel">
                                                     {address && hasAllowance() ? (
                                                         <div
@@ -187,16 +238,16 @@ function ILO() {
                                                 </div>
                                             )}
 
-                                            {view === 1 && (
+                                            {(!inTime && view === 1) && (
                                                 <div className="ILO-card-tab-panel">
                                                     <div
                                                         className="ILO-card-tab-panel-btn"
                                                         onClick={() => {
-                                                            if (isPendingTxn(pendingTransactions, "unstaking")) return;
-                                                            onChangeStake("unstake");
+                                                            if (isPendingTxn(pendingTransactions, "withdrawing")) return;
+                                                            onChangeStake("withdraw");
                                                         }}
                                                     >
-                                                        <p>{txnButtonText(pendingTransactions, "unstaking", "Withdraw IDK")}</p>
+                                                        <p>{txnButtonText(pendingTransactions, "withdrawing", "Withdraw IDK")}</p>
                                                         {/* TODO: pending tx + unstake */}
                                                     </div>
                                                 </div>
@@ -204,7 +255,7 @@ function ILO() {
                                         </div>
 
                                         <div className="ILO-card-action-help-text">
-                                            {address && (!hasAllowance() && view === 0) && (
+                                            {address && (!hasAllowance() && view === 0 && inTime) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when depositing for the first time; subsequent deposit only
                                                     requires you to perform the "Withdraw" transaction.
