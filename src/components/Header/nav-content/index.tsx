@@ -55,14 +55,14 @@ function NavContent() {
             </Link>
             <Link
                 component={NavLink}
-                to="/ILO"
+                to="/INIT_SALE"
                 isActive={(match: any, location: any) => {
-                    return checkPage(location, "ILO");
+                    return checkPage(location, "INIT_SALE");
                 }}
                 className={classnames("button-dapp-menu", { active: isActive })}
             >
                 <div className="dapp-menu-item">
-                    <p>ILO</p>
+                    <p>INIT_SALE</p>
                 </div>
             </Link>
             <Link
