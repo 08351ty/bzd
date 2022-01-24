@@ -87,7 +87,7 @@ export const changeDaiApproval = createAsyncThunk("stake/changeApproval", async 
         const gasPrice = await getGasPrice(provider);
 
         if (token === "dai") {
-            approveTx = await daiContract.approve(addresses.INIT_SALE_ADDRESS, ethers.constants.MaxUint256, { gasPrice }); //TODO: change staking address
+            approveTx = await daiContract.approve(addresses.IDO_ADDRESS, ethers.constants.MaxUint256, { gasPrice }); //TODO: change staking address
         }
 
         const text = "Approve DAI depositing";

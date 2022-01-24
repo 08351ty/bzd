@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, IdkTokenContract } from "../../abi";
+import { StakingContract, MemoTokenContract, IdkTokenContract, SaleVault } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -25,6 +25,7 @@ export const loadAppDetails = createAsyncThunk(
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
         const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
         const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, IdkTokenContract, provider);
+        const idoContract = new ethers.Contract(addresses.IDO_ADDRESS, SaleVault, provider);
 
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice;
 
@@ -62,6 +63,12 @@ export const loadAppDetails = createAsyncThunk(
         const treasuryRunway = rfvTreasury / circSupply;
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 
+        // IDO
+        const mintTokenPrice = Number((await idoContract.mintTokenPrice())._hex) / 10 ** 18;
+        const maxUserDeposit = Number((await idoContract.maxUserDeposit())._hex) / 10 ** 18;
+        const totalGlobalDeposit = Number((await idoContract.totalGlobalDeposit())._hex) / 10 ** 18;
+        const maxGlobalDeposit = Number((await idoContract.maxGlobalDeposit())._hex) / 10 ** 18;
+
         return {
             currentIndex: Number(ethers.utils.formatUnits(currentIndex, "gwei")),
             totalSupply,
@@ -78,6 +85,10 @@ export const loadAppDetails = createAsyncThunk(
             nextRebase,
             rfv,
             runway,
+            mintTokenPrice,
+            maxUserDeposit,
+            totalGlobalDeposit,
+            maxGlobalDeposit,
         };
     },
 );
@@ -104,6 +115,10 @@ export interface IAppSlice {
     totalSupply: number;
     rfv: number;
     runway: number;
+    mintTokenPrice: number;
+    maxUserDeposit: number;
+    totalGlobalDeposit: number;
+    maxGlobalDeposit: number;
 }
 
 const appSlice = createSlice({

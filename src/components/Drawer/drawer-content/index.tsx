@@ -25,7 +25,7 @@ function NavContent() {
         if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
             return true;
         }
-        if (currentPath.indexOf("INIT_SALE") >= 0 && page === "INIT_SALE") {
+        if (currentPath.indexOf("IDO") >= 0 && page === "IDO") {
             return true;
         }
         if (currentPath.indexOf("stake") >= 0 && page === "stake") {
