@@ -46,16 +46,28 @@ function IDO() {
     const daiBalance = useSelector<IReduxState, string>(state => {
         return state.account.balances && state.account.balances.dai;
     });
-    const depositedDai = 1000
-    const receivedIdk = depositedDai / idkPrice
+
+    const depositedDai = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.depositedDai;
+    });
+
+    const depositAllowance = useSelector<IReduxState, number>(state => {
+        return state.account.staking && state.account.staking.daiIDO;
+    });
+
+    const receivedIdk = Number(depositedDai) / idkPrice;
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
     });
 
-    const hasAllowance = useCallback(() => {
-        return true;
-    }, [true]);
+    const hasAllowance = useCallback(
+        token => {
+            if (token === "dai") return depositAllowance > 0;
+            return false;
+        },
+        [false],
+    );
 
     const setMax = () => {
         if (view === 0) {
@@ -188,7 +200,7 @@ function IDO() {
                                             />
 
                                                 <div className="IDO-card-tab-panel">
-                                                    {address && hasAllowance() ? (
+                                                    {address && hasAllowance("dai") ? (
                                                         <div
                                                             className="IDO-card-tab-panel-btn"
                                                             onClick={() => {
@@ -213,7 +225,7 @@ function IDO() {
                                         </div>
 
                                         <div className="IDO-card-action-help-text">
-                                            {address && (!hasAllowance() && view === 0) && (
+                                            {address && (!hasAllowance("dai") && view === 0) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when depositing for the first time; subsequent deposit only
                                                     requires you to perform the "Deposit" transaction.
@@ -243,7 +255,7 @@ function IDO() {
                                         <div className="data-row">
                                             <p className="data-row-name">Your Received IDK</p>
                                             <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{new Intl.NumberFormat("en-US", {
-                                                        maximumFractionDigits: 0,
+                                                        maximumFractionDigits: 2,
                                                         minimumFractionDigits: 0,
                                                     }).format(Number(receivedIdk))} IDK</>}</p>
                                             {/* TODO: change to received idk */}

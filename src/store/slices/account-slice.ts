@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { IdkTokenContract, MemoTokenContract, MimTokenContract } from "../../abi";
+import { IdkTokenContract, MemoTokenContract, MimTokenContract, SaleVault } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -22,6 +22,7 @@ interface IAccountBalances {
         memo: string;
         time: string;
         dai: string;
+        depositedDai: string;
     };
 }
 
@@ -34,12 +35,15 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
     const timeBalance = await timeContract.balanceOf(address);
     const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, IdkTokenContract, provider);
     const daiBalance = await daiContract.balanceOf(address);
+    const idoContract = new ethers.Contract(addresses.IDO_ADDRESS, SaleVault, provider);
+    const depositedDai = await idoContract.totalUserDeposit(address);
 
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
             time: ethers.utils.formatUnits(timeBalance, "gwei"),
             dai: ethers.utils.formatUnits(daiBalance),
+            depositedDai: ethers.utils.formatUnits(depositedDai),
         },
     };
 });
@@ -59,6 +63,7 @@ interface IUserAccountDetails {
     staking: {
         time: number;
         memo: number;
+        daiIDO: number;
     };
 }
 
@@ -69,6 +74,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
+    let idoAllowance = 0;
 
     const addresses = getAddresses(networkID);
 
@@ -87,6 +93,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     if (addresses.DAI_ADDRESS) {
         const daiContract = new ethers.Contract(addresses.DAI_ADDRESS, IdkTokenContract, provider);
         daiBalance = await daiContract.balanceOf(address);
+        idoAllowance = await daiContract.allowance(address, addresses.IDO_ADDRESS);
     }
 
     return {
@@ -98,6 +105,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
         staking: {
             time: Number(stakeAllowance),
             memo: Number(unstakeAllowance),
+            daiIDO: Number(idoAllowance),
         },
     };
 });
@@ -234,11 +242,13 @@ export interface IAccountSlice {
         memo: string;
         time: string;
         dai: string;
+        depositedDai: string;
     };
     loading: boolean;
     staking: {
         time: number;
         memo: number;
+        daiIDO: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
 }
@@ -246,8 +256,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "", dai: "" },
-    staking: { time: 0, memo: 0 },
+    balances: { memo: "", time: "", dai: "", depositedDai: "" },
+    staking: { time: 0, memo: 0, daiIDO: 0 },
     tokens: {},
 };
 
