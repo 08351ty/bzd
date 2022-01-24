@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, InputAdornment, OutlinedInput, Zoom } from "@material-ui/core";
 import { trim } from "../../helpers";
-import { changeStake, changeApproval } from "../../store/slices/stake-thunk";
+import { changeStake, deposit, changeApproval, changeDaiApproval } from "../../store/slices/stake-thunk";
 import "./IDO.scss";
 import { useWeb3Context } from "../../hooks";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
@@ -80,7 +80,17 @@ function IDO() {
     const onSeekApproval = async (token: string) => {
         if (await checkWrongNetwork()) return;
 
-        await dispatch(changeApproval({ address, token, provider, networkID: chainID }));
+        await dispatch(changeDaiApproval({ address, token, provider, networkID: chainID }));
+    };
+
+    const onDeposit = async (action: string) => {
+        if (await checkWrongNetwork()) return;
+        if (quantity === "" || parseFloat(quantity) === 0) {
+            dispatch(warning({ text: action === "deposit" ? messages.before_deposit : messages.before_unstake }));
+        } else {
+            await dispatch(deposit({ address, action, value: String(quantity), provider, networkID: chainID }));
+            setQuantity("");
+        }
     };
 
     return (
@@ -205,6 +215,7 @@ function IDO() {
                                                             className="IDO-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "depositing")) return;
+                                                                onDeposit("deposit");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "depositing", "Deposit DAI")}</p>

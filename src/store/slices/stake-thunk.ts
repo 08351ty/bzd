@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, IdkTokenContract, MemoTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, IdkTokenContract, MemoTokenContract, StakingContract, SaleVault } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -146,6 +146,40 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
     } finally {
         if (stakeTx) {
             dispatch(clearPendingTxn(stakeTx.hash));
+        }
+    }
+    dispatch(info({ text: messages.your_balance_update_soon }));
+    await sleep(10);
+    await dispatch(getBalances({ address, networkID, provider }));
+    dispatch(info({ text: messages.your_balance_updated }));
+    return;
+});
+
+export const deposit = createAsyncThunk("stake/changeStake", async ({ action, value, provider, address, networkID }: IChangeStake, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+    const addresses = getAddresses(networkID);
+    const signer = provider.getSigner();
+    const depositing = new ethers.Contract(addresses.IDO_ADDRESS, SaleVault, signer);
+
+    let depositTx;
+
+    try {
+        const gasPrice = await getGasPrice(provider);
+
+        depositTx = await depositing.deposit(ethers.utils.parseUnits(value), { gasPrice: gasPrice });
+
+        const pendingTxnType = action === "deposit" ? "depositing" : "depositing";
+        dispatch(fetchPendingTxns({ txnHash: depositTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));
+        await depositTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+    } catch (err: any) {
+        return metamaskErrorWrap(err, dispatch);
+    } finally {
+        if (depositTx) {
+            dispatch(clearPendingTxn(depositTx.hash));
         }
     }
     dispatch(info({ text: messages.your_balance_update_soon }));
